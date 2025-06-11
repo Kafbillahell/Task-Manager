@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TeamController;
 
-// Endpoint API Teams dan Projects
-Route::apiResource('teams', TeamController::class);
+// API route untuk projects
 Route::apiResource('projects', ProjectController::class);
+
+// API route untuk teams
+Route::apiResource('teams', TeamController::class);
