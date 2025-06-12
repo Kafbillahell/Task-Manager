@@ -14,4 +14,8 @@ class TemplateController extends Controller
   {
     return view('layouts.table');
   }
+  public function form()
+  {
+    return view('layouts.form');
+  }
 }

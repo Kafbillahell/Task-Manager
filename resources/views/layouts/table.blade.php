@@ -2,13 +2,10 @@
 @section('content')
   <!-- Page Heading -->
   <h1 class="h3 mb-2 text-gray-800">Tables</h1>
-  <p class="mb-4">DataTables is a third party plugin that is used to generate the demo table below.
-    For more information about DataTables, please visit the <a target="_blank" href="https://datatables.net">official
-      DataTables documentation</a>.</p>
   <!-- DataTales Example -->
   <div class="card shadow mb-4">
     <div class="card-header py-3">
-      <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+      <h6 class="m-0 font-weight-bold text-primary">Employees Table</h6>
     </div>
     <div class="card-body">
       <div class="table-responsive">
@@ -34,30 +31,16 @@
             </tr>
           </tfoot>
           <tbody>
+            @foreach($employees as $employee)
             <tr>
-              <td>Tiger Nixon</td>
-              <td>System Architect</td>
-              <td>Edinburgh</td>
-              <td>61</td>
-              <td>2011/04/25</td>
-              <td>$320,800</td>
+              <td>{{ $employee->name }}</td>
+              <td>{{ $employee->position }}</td>
+              <td>{{ $employee->office }}</td>
+              <td>{{ $employee->age }}</td>
+              <td>{{ $employee->start_date }}</td>
+              <td>${{ number_format($employee->salary, 2) }}</td>
             </tr>
-            <tr>
-              <td>Garrett Winters</td>
-              <td>Accountant</td>
-              <td>Tokyo</td>
-              <td>63</td>
-              <td>2011/07/25</td>
-              <td>$170,750</td>
-            </tr>
-            <tr>
-              <td>Ashton Cox</td>
-              <td>Junior Technical Author</td>
-              <td>San Francisco</td>
-              <td>66</td>
-              <td>2009/01/12</td>
-              <td>$86,000</td>
-            </tr>
+            @endforeach
           </tbody>
         </table>
       </div>
