@@ -9,7 +9,8 @@ class ProjectController extends Controller
 {
     public function index()
     {
-        return Project::all();
+        $data['result'] = \App\Models\Project::all();
+        return view('project/index')->with($data);
     }
 
     public function store(Request $request)
@@ -23,13 +24,25 @@ class ProjectController extends Controller
 
         $project = Project::create($request->all());
 
-        return response()->json($project, 201);
+        return redirect('/project')->with('success', 'Project berhasil ditambahkan.');
+    }
+
+    public function create()
+    {
+        return view('project/form');
     }
 
     public function show($id)
     {
         $project = Project::findOrFail($id);
         return response()->json($project);
+    }
+
+    public function edit(string $id)
+    {
+        //
+        $data['result'] = \App\Models\Project::where('id', $id)->first();
+        return view('project/form')->with($data);
     }
 
     public function update(Request $request, $id)
@@ -44,8 +57,9 @@ class ProjectController extends Controller
         ]);
 
         $project->update($request->all());
+        return redirect('/project')->with('message', 'Data berhasil di ubah');
 
-        return response()->json($project);
+       
     }
 
     public function destroy($id)
@@ -53,6 +67,6 @@ class ProjectController extends Controller
         $project = Project::findOrFail($id);
         $project->delete();
 
-        return response()->json(['message' => 'Project deleted successfully']);
+        return redirect('/project')->with('success', 'Project berhasil dihapus.');
     }
 }

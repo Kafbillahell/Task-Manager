@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Project;
 use App\Models\TaskModel;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -10,7 +12,8 @@ class TaskController extends Controller
     //
     public function index()
     {
-        return TaskModel::all();
+        $data['result'] = \App\Models\TaskModel::all();
+        return view('task/index')->with($data);
     }
 
     public function store(Request $request)
@@ -28,7 +31,14 @@ class TaskController extends Controller
 
         $data = TaskModel::create($request->all());
 
-        return response()->json($data, 201);
+        return redirect('/task')->with('success', 'Task berhasil ditambahkan.');
+    }
+
+    public function create()
+    {
+        $data['users'] = User::all();
+        $data['projects'] = Project::all();
+        return view('task/form')->with($data);
     }
 
     public function show($id)
@@ -54,7 +64,15 @@ class TaskController extends Controller
 
         $data->update($request->all());
 
-        return response()->json($data);
+        return redirect('/task')->with('message', 'Data berhasil di ubah');
+    }
+
+    public function edit(string $id)
+    {
+        $data['result'] = TaskModel::findOrFail($id);
+        $data['users'] = User::all();
+        $data['projects'] = Project::all();
+        return view('task/form')->with($data);
     }
 
     public function destroy($id)
@@ -62,6 +80,6 @@ class TaskController extends Controller
         $data = TaskModel::findOrFail($id);
         $data->delete();
 
-        return response()->json(['message' => 'Task Berhasil di hapus ']);
+        return redirect('/task')->with('success', 'Data berhasil di hapus');
     }
 }
