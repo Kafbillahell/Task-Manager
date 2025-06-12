@@ -82,4 +82,25 @@ class TaskController extends Controller
 
         return redirect('/task')->with('success', 'Data berhasil di hapus');
     }
+    public function showBoard()
+    {
+        $todoTasks = TaskModel::where('status', 'todo')->get();
+        $inProgressTasks = TaskModel::where('status', 'in_progress')->get();
+        $doneTasks = TaskModel::where('status', 'done')->get();
+
+        return view('tasks.tasks', compact('todoTasks', 'inProgressTasks', 'doneTasks'));
+    }
+    public function updateStatus(Request $request, $id)
+    {
+        $task = TaskModel::findOrFail($id);
+        $request->validate([
+            'status' => 'required|in:todo,in_progress,done',
+            'order' => 'required|integer'
+        ]);
+        $task->status = $request->status;
+        $task->order = $request->order;
+        $task->save();
+    
+        return response()->json(['success' => true]);
+    }
 }

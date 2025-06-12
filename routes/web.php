@@ -6,10 +6,12 @@ use App\Http\Controllers\TemplateController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TeamController;
+use App\Http\Controllers\TaskController;
 
 Route::get('/home', [TemplateController::class, 'show'])->name('home');
 Route::get('/table', [TemplateController::class, 'table'])->name('table');
 Route::get('/form', [TemplateController::class, 'form'])->name('form');
+
 // Endpoint API Teams dan Projects
 // Route::apiResource('teams', TeamController::class);
 // Route::resource('project', ProjectController::class);
